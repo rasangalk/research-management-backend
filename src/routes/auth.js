@@ -3,6 +3,7 @@ const {
   signin,
   studentSignup,
   supervisorSignup,
+  getGroupDetailsById,
 } = require("../controllers/auth-controller");
 // const { Signupp } = require("../controllers/demo-controller");
 // const { studentSignup } = require("../controllers/register-auth-controller");
@@ -32,5 +33,6 @@ router.post(
 );
 
 router.post("/signin", signin);
+router.get("/student/group-details/:groupId", getGroupDetailsById);
 
 module.exports = router;

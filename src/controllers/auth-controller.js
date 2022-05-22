@@ -1,7 +1,6 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const shortid = require("shortid");
 
 exports.studentSignup = (req, res) => {
   User.findOne({ username: req.body.username }).exec(async (error, user) => {
@@ -146,6 +145,7 @@ exports.signin = (req, res) => {
         res.status(200).json({
           token,
           user: {
+            _id: user._id,
             username: user.username,
             role: user.role,
             phone: user.phone,
@@ -191,6 +191,20 @@ exports.signin = (req, res) => {
       return res.status(400).json({ message: "Something went wrong !!" });
     }
   });
+};
+
+exports.getGroupDetailsById = (req, res) => {
+  const { groupId } = req.params;
+  if (groupId) {
+    User.findOne({ _id: groupId }).exec((error, group) => {
+      if (error) return res.status(400).json({ error });
+      if (group) {
+        res.status(201).json({ group });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
 };
 
 // exports.signout = (req, res) => {
