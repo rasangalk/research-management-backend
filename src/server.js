@@ -31,6 +31,7 @@ const authRoutes = require("./routes/auth");
 const templateRoutes = require("./routes/template");
 const topicRoutes = require("./routes/topic");
 const submissionRoutes = require("./routes/submission");
+const studentSubmissionRoutes = require("./routes/student-submission");
 
 app.use(cors());
 app.use(express.json());
@@ -39,3 +40,4 @@ app.use("/api", authRoutes);
 app.use("/api", templateRoutes);
 app.use("/api", topicRoutes);
 app.use("/api", submissionRoutes);
+app.use("/api", studentSubmissionRoutes);
