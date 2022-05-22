@@ -60,7 +60,6 @@ const userSchema = new mongoose.Schema(
 
     specialization: {
       type: String,
-      enum: ["SE", "CSNE", "DS", "ISE", "CS"],
     },
 
     research_interest: {
@@ -106,7 +105,7 @@ const userSchema = new mongoose.Schema(
 
         specialization: {
           type: String,
-          enum: ["SE", "CSNE", "DS", "ISE", "CS"],
+          // enum: ["SE", "CSNE", "DS", "ISE", "CS"],
         },
       },
 
@@ -142,7 +141,7 @@ const userSchema = new mongoose.Schema(
 
         specialization: {
           type: String,
-          enum: ["SE", "CSNE", "DS", "ISE", "CS"],
+          // enum: ["SE", "CSNE", "DS", "ISE", "CS"],
         },
       },
 
@@ -178,7 +177,7 @@ const userSchema = new mongoose.Schema(
 
         specialization: {
           type: String,
-          enum: ["SE", "CSNE", "DS", "ISE", "CS"],
+          // enum: ["SE", "CSNE", "DS", "ISE", "CS"],
         },
       },
 
@@ -214,8 +213,50 @@ const userSchema = new mongoose.Schema(
 
         specialization: {
           type: String,
-          enum: ["SE", "CSNE", "DS", "ISE", "CS"],
+          // enum: ["SE", "CSNE", "DS", "ISE", "CS"],
         },
+      },
+    },
+    status: {
+      no1: {
+        type: String,
+        default: "false",
+      },
+      no2: {
+        type: String,
+        default: "false",
+      },
+      no3: {
+        type: String,
+        default: "false",
+      },
+      no4: {
+        type: String,
+        default: "false",
+      },
+      no5: {
+        type: String,
+        default: "false",
+      },
+      no6: {
+        type: String,
+        default: "false",
+      },
+      no7: {
+        type: String,
+        default: "false",
+      },
+      no8: {
+        type: String,
+        default: "false",
+      },
+      no9: {
+        type: String,
+        default: "false",
+      },
+      no10: {
+        type: String,
+        default: "false",
       },
     },
   },
