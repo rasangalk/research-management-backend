@@ -4,6 +4,8 @@ const {
   addStaffMember,
   GetAllMemebrDetails,
   DeleteMember,
+  GetAllStaffMemebrDetails,
+  GetAllSupervisorDetails,
 } = require("../controllers/Admin/admin-controller");
 const {
   signin,
@@ -72,5 +74,18 @@ router.get(
 );
 
 router.delete("/admin/members/delete/:memberId", DeleteMember);
+router.get(
+  "/admin/staff-members",
+  requireSignin,
+  //adminMiddleware,
+  GetAllStaffMemebrDetails
+);
+
+router.get(
+  "/admin/supervisors",
+  requireSignin,
+  //adminMiddleware,
+  GetAllSupervisorDetails
+);
 
 module.exports = router;

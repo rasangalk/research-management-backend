@@ -4,6 +4,7 @@ const StudentSubmission = require("../../models/student-submission");
 //Student Group Topic Regstration
 exports.registerTopic = (req, res) => {
   const {
+    groupId,
     researchInterest,
     topic,
     supervisor,
@@ -13,6 +14,7 @@ exports.registerTopic = (req, res) => {
   } = req.body;
 
   const topicReg = new Topic({
+    groupId,
     researchInterest,
     topic,
     supervisor,

@@ -148,18 +148,18 @@ exports.addPanel = (req, res) => {
       panelId: req.body.panelId,
       panelMembers: {
         member1: {
-          // memberId: req.body.panelMembers.member1.memberId,
-          // fullName: req.body.panelMembers.member1.fullName,
+          memberId: req.body.panelMembers.member1.memberId,
+          fullName: req.body.panelMembers.member1.fullName,
           username: req.body.panelMembers.member1.username,
         },
         member2: {
-          // memberId: req.body.panelMembers.member2.memberId,
-          // fullName: req.body.panelMembers.member2.fullName,
+          memberId: req.body.panelMembers.member2.memberId,
+          fullName: req.body.panelMembers.member2.fullName,
           username: req.body.panelMembers.member2.username,
         },
         member3: {
-          // memberId: req.body.panelMembers.member3.memberId,
-          // fullName: req.body.panelMembers.member3.fullName,
+          memberId: req.body.panelMembers.member3.memberId,
+          fullName: req.body.panelMembers.member3.fullName,
           username: req.body.panelMembers.member3.username,
         },
       },
@@ -404,4 +404,30 @@ exports.DeleteMember = (req, res) => {
     .catch((error) => {
       res.status(400).json({ error });
     });
+};
+
+//Get all Staff members
+exports.GetAllStaffMemebrDetails = (req, res) => {
+  User.find({ role: "staff" }).exec((error, staffMembers) => {
+    if (error) return res.status(400).json({ error });
+
+    if (staffMembers) {
+      res.status(200).json({
+        staffMembers,
+      });
+    }
+  });
+};
+
+//Get all Supervisor members
+exports.GetAllSupervisorDetails = (req, res) => {
+  User.find({ role: "supervisor" }).exec((error, supservisors) => {
+    if (error) return res.status(400).json({ error });
+
+    if (supservisors) {
+      res.status(200).json({
+        supservisors,
+      });
+    }
+  });
 };

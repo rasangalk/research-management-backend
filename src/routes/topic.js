@@ -4,6 +4,9 @@ const router = express.Router();
 const {
   registerTopic,
 } = require("../controllers/Students/students-controller");
+const {
+  GetSupervisorTopicsDetails,
+} = require("../controllers/Supervisor/supervisor-controller");
 
 router.post(
   "/student/topic/register",
@@ -12,4 +15,9 @@ router.post(
   registerTopic
 );
 
+router.get(
+  "/supervisor/topics/:supervisorId",
+  requireSignin,
+  GetSupervisorTopicsDetails
+);
 module.exports = router;

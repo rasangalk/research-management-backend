@@ -14,21 +14,21 @@ const panelSchema = new mongoose.Schema(
 
     panelMembers: {
       member1: {
-        // memberId: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        memberId: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
-        // fullName: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        fullName: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
         username: {
           type: String,
@@ -40,21 +40,21 @@ const panelSchema = new mongoose.Schema(
       },
 
       member2: {
-        // memberId: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        memberId: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
-        // fullName: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        fullName: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
         username: {
           type: String,
@@ -66,21 +66,21 @@ const panelSchema = new mongoose.Schema(
       },
 
       member3: {
-        // memberId: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        memberId: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
-        // fullName: {
-        //   type: String,
-        //   required: false,
-        //   trim: true,
-        //   min: 3,
-        //   max: 30,
-        // },
+        fullName: {
+          type: String,
+          required: false,
+          trim: true,
+          min: 3,
+          max: 30,
+        },
 
         username: {
           type: String,

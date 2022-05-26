@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema(
 
     research_interest: {
       type: String,
-      enum: ["AI", "AB", "CD", "EF", "GH"],
+      enum: ["AI", "ML", "CD", "EF", "GH"],
     },
 
     // subject: {
@@ -264,6 +264,15 @@ const userSchema = new mongoose.Schema(
         type: String,
         default: "false",
       },
+    },
+
+    supervisor: {
+      type: String,
+      default: "unavailable",
+    },
+    coSupervisor: {
+      type: String,
+      default: "unavailable",
     },
   },
   { timestamps: true }

@@ -60,6 +60,8 @@ exports.studentSignup = (req, res) => {
         no9: req.body.status.no9,
         no10: req.body.status.no10,
       },
+      supervisor: req.body.supervisor,
+      coSupervisor: req.body.coSupervisor,
     });
 
     _student.save((error, data) => {

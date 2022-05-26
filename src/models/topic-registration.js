@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const topicSchema = new mongoose.Schema(
   {
+    groupId: {
+      type: String,
+      required: true,
+    },
     researchInterest: {
       type: String,
       required: true,
@@ -29,6 +33,7 @@ const topicSchema = new mongoose.Schema(
 
     supervisorStatus: {
       type: String,
+      default: "unavailable",
     },
 
     coSupervisorStatus: {

@@ -13,7 +13,7 @@ router.post("/admin/panel/add", addPanel, requireSignin);
 router.get(
   "/admin/panel-details",
   requireSignin,
-  adminMiddleware,
+  //adminMiddleware,
   GetAllPanelDetails
 );
 router.get(
