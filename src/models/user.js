@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ["student", "supervisor", "staff"],
+      enum: ["student", "supervisor", "staff", "admin"],
+      default: "staff",
     },
 
     hash_password: {
@@ -67,9 +68,14 @@ const userSchema = new mongoose.Schema(
       enum: ["AI", "AB", "CD", "EF", "GH"],
     },
 
-    subject: {
+    // subject: {
+    //   type: String,
+    //   enum: ["AQ", "BQ", "CQ", "EQ", "GQ"],
+    // },
+
+    panel: {
       type: String,
-      enum: ["AQ", "BQ", "CQ", "EQ", "GQ"],
+      default: "unavailable",
     },
 
     students: {

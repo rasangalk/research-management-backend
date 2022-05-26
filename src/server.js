@@ -32,6 +32,8 @@ const templateRoutes = require("./routes/template");
 const topicRoutes = require("./routes/topic");
 const submissionRoutes = require("./routes/submission");
 const studentSubmissionRoutes = require("./routes/student-submission");
+const panelRoutes = require("./routes/panel");
+const markingSchemaRoutes = require("./routes/markingSchema");
 
 app.use(cors());
 app.use(express.json());
@@ -41,3 +43,5 @@ app.use("/api", templateRoutes);
 app.use("/api", topicRoutes);
 app.use("/api", submissionRoutes);
 app.use("/api", studentSubmissionRoutes);
+app.use("/api", panelRoutes);
+app.use("/api", markingSchemaRoutes);

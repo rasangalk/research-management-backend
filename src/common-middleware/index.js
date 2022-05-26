@@ -10,3 +10,31 @@ exports.requireSignin = (req, res, next) => {
   }
   next();
 };
+
+exports.studentMiddleware = (req, res, next) => {
+  if (req.user.role !== "student") {
+    return res.status(400).json({ message: "Student access denied" });
+  }
+  next();
+};
+
+exports.adminMiddleware = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(400).json({ message: "Admin access denied" });
+  }
+  next();
+};
+
+exports.supervisorMiddleware = (req, res, next) => {
+  if (req.user.role !== "supervisor") {
+    return res.status(400).json({ message: "Supervisor access denied" });
+  }
+  next();
+};
+
+exports.staffMiddleware = (req, res, next) => {
+  if (req.user.role !== "staff") {
+    return res.status(400).json({ message: "Staff access denied" });
+  }
+  next();
+};

@@ -2,6 +2,7 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+//Student Signup
 exports.studentSignup = (req, res) => {
   User.findOne({ username: req.body.username }).exec(async (error, user) => {
     if (user)
@@ -16,6 +17,7 @@ exports.studentSignup = (req, res) => {
       role: req.body.role,
       hash_password: hash_password,
       re_hash_password: req.body.re_hash_password,
+      panel: req.body.panel,
       students: {
         leader: {
           fullName: req.body.students.leader.fullName,
@@ -77,6 +79,7 @@ exports.studentSignup = (req, res) => {
   });
 };
 
+//Supervisor Signup
 exports.supervisorSignup = (req, res) => {
   User.findOne({ username: req.body.username }).exec(async (error, user) => {
     if (user)
@@ -95,7 +98,6 @@ exports.supervisorSignup = (req, res) => {
       phone,
       email,
       research_interest,
-      subject,
     } = req.body;
 
     const hash_password = await bcrypt.hash(password, 10);
@@ -110,7 +112,6 @@ exports.supervisorSignup = (req, res) => {
       sliit_id,
       phone,
       research_interest,
-      subject,
     });
 
     _supervisor.save((error, data) => {
@@ -130,6 +131,7 @@ exports.supervisorSignup = (req, res) => {
   });
 };
 
+//All users Signin
 exports.signin = (req, res) => {
   User.findOne({ username: req.body.username }).exec((error, user) => {
     if (error) return res.status(400).json({ error });
@@ -193,6 +195,7 @@ exports.signin = (req, res) => {
   });
 };
 
+//Get relevant student group deatils by Id
 exports.getGroupDetailsById = (req, res) => {
   const { groupId } = req.params;
   if (groupId) {
@@ -200,6 +203,55 @@ exports.getGroupDetailsById = (req, res) => {
       if (error) return res.status(400).json({ error });
       if (group) {
         res.status(201).json({ group });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
+
+//Get all students groups details
+exports.GetAllGroupDetails = (req, res) => {
+  User.find({ role: "student" }).exec((error, groups) => {
+    if (error) return res.status(400).json({ error });
+
+    if (groups) {
+      res.status(200).json({
+        groups,
+      });
+    }
+  });
+};
+
+//Update student group panel
+exports.UpdatePanel = (req, res) => {
+  const { groupId } = req.params;
+  if (groupId) {
+    User.findOneAndUpdate(
+      { _id: groupId },
+      {
+        panel: req.body.panel,
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
+
+//Get relevant member deatils by Id
+exports.getMemberDetailsById = (req, res) => {
+  const { memberId } = req.params;
+  if (memberId) {
+    User.findOne({
+      $or: [{ role: "staff" }, { role: "supervisor" }],
+      $and: [{ _id: memberId }],
+    }).exec((error, member) => {
+      if (error) return res.status(400).json({ error });
+      if (member) {
+        res.status(201).json({ member });
       }
     });
   } else {

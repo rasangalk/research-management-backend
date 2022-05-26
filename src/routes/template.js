@@ -9,6 +9,7 @@ const {
   DeleteTemplate,
   getTemplates,
 } = require("../controllers/Admin/admin-controller");
+const { requireSignin, adminMiddleware } = require("../common-middleware");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,10 +26,17 @@ router.post(
   "/admin/template/add",
   //   requireSignin,
   upload.array("researchTemplate"),
+  requireSignin,
+  adminMiddleware,
   AddTemplate
 );
-router.delete("/admin/template/delete/:templateId", DeleteTemplate);
-router.get("/admin/templates", getTemplates);
+router.delete(
+  "/admin/template/delete/:templateId",
+  requireSignin,
+  adminMiddleware,
+  DeleteTemplate
+);
+router.get("/admin/templates", requireSignin, getTemplates);
 // // router.get("/product/:slug", getProductsBySlug);
 // router.get("/admin/movies/:movieId", getMovieDetailsById);
 

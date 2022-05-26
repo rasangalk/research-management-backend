@@ -1,5 +1,9 @@
 const Template = require("../../models/template");
 const Submission = require("../../models/submission");
+const Panel = require("../../models/panel");
+const MarkingSchema = require("../../models/markingSchem");
+const User = require("../../models/user");
+const bcrypt = require("bcrypt");
 
 //Admin add template
 exports.AddTemplate = (req, res) => {
@@ -118,4 +122,286 @@ exports.UpdateSubmission = (req, res) => {
       }
     });
   }
+};
+
+//Delete relevant submission
+exports.DeleteSubmission = (req, res) => {
+  const { submissionId } = req.params;
+  User.findOneAndDelete({ _id: submissionId })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
+
+//Add panel
+exports.addPanel = (req, res) => {
+  Panel.findOne({ panelId: req.body.panelId }).exec(async (error, panel) => {
+    if (panel)
+      return res.status(400).json({
+        message: "Panel already created",
+      });
+
+    const _panel = new Panel({
+      panelId: req.body.panelId,
+      panelMembers: {
+        member1: {
+          // memberId: req.body.panelMembers.member1.memberId,
+          // fullName: req.body.panelMembers.member1.fullName,
+          username: req.body.panelMembers.member1.username,
+        },
+        member2: {
+          // memberId: req.body.panelMembers.member2.memberId,
+          // fullName: req.body.panelMembers.member2.fullName,
+          username: req.body.panelMembers.member2.username,
+        },
+        member3: {
+          // memberId: req.body.panelMembers.member3.memberId,
+          // fullName: req.body.panelMembers.member3.fullName,
+          username: req.body.panelMembers.member3.username,
+        },
+      },
+    });
+
+    console.log(req.body.panelMembers.member3);
+    _panel.save((error, data) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Something went wrong!",
+          error: error,
+        });
+      }
+
+      if (data) {
+        return res.status(201).json({
+          message: "Panel created successfully!",
+        });
+      }
+    });
+  });
+};
+
+//Get all panel details
+exports.GetAllPanelDetails = (req, res) => {
+  Panel.find({}).exec((error, panels) => {
+    if (error) return res.status(400).json({ error });
+
+    if (panels) {
+      res.status(200).json({
+        panels,
+      });
+    }
+  });
+};
+
+//Get relevant Panel by id
+exports.getPanelById = (req, res) => {
+  const { panelId } = req.params;
+  if (panelId) {
+    Panel.findOne({ _id: panelId }).exec((error, panel) => {
+      if (error) return res.status(400).json({ error });
+      if (panel) {
+        res.status(201).json({ panel });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
+
+//Update panel details
+exports.UpdatePanelMembers = (req, res) => {
+  const { panelId } = req.params;
+  if (panelId) {
+    Panel.findOneAndUpdate(
+      { _id: panelId },
+      {
+        panelMembers: {
+          member1: {
+            // memberId: req.body.panelMembers.member1.memberId,
+            // fullName: req.body.panelMembers.member1.fullName,
+            username: req.body.panelMembers.member1.username,
+          },
+          member2: {
+            // memberId: req.body.panelMembers.member2.memberId,
+            // fullName: req.body.panelMembers.member2.fullName,
+            username: req.body.panelMembers.member2.username,
+          },
+          member3: {
+            // memberId: req.body.panelMembers.member3.memberId,
+            // fullName: req.body.panelMembers.member3.fullName,
+            username: req.body.panelMembers.member3.username,
+          },
+        },
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
+
+//Admin create Marking Schema
+exports.addMarkingSchema = (req, res) => {
+  const {
+    assignmentName,
+    namingField1,
+    namingField2,
+    namingField3,
+    markingField1,
+    markingField2,
+    markingField3,
+  } = req.body;
+
+  const markingSchema = new MarkingSchema({
+    assignmentName,
+    namingField1,
+    namingField2,
+    namingField3,
+    markingField1,
+    markingField2,
+    markingField3,
+  });
+
+  markingSchema.save((error, markingSchema) => {
+    if (error) return res.status(400).json({ error });
+    if (markingSchema) {
+      res.status(201).json({ markingSchema });
+    }
+  });
+};
+
+//Get all marking schemas
+exports.GetAllMarkingSchemas = (req, res) => {
+  MarkingSchema.find({}).exec((error, markingSchemas) => {
+    if (error) return res.status(400).json({ error });
+
+    if (markingSchemas) {
+      res.status(200).json({
+        markingSchemas,
+      });
+    }
+  });
+};
+
+//Get relevant Marking Schema by id
+exports.getMarkingSchemaById = (req, res) => {
+  const { markingSchemaId } = req.params;
+  if (markingSchemaId) {
+    MarkingSchema.findOne({ _id: markingSchemaId }).exec(
+      (error, markingSchema) => {
+        if (error) return res.status(400).json({ error });
+        if (markingSchema) {
+          res.status(201).json({ markingSchema });
+        }
+      }
+    );
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
+
+//Update panel details
+exports.UpdateMarkingSchema = (req, res) => {
+  const { markingSchemaId } = req.params;
+  if (markingSchemaId) {
+    MarkingSchema.findOneAndUpdate(
+      { _id: markingSchemaId },
+      {
+        assignmentName: req.body.assignmentName,
+        namingField1: req.body.namingField1,
+        namingField2: req.body.namingField2,
+        namingField3: req.body.namingField3,
+        markingField1: req.body.markingField1,
+        markingField2: req.body.markingField2,
+        markingField3: req.body.markingField3,
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
+
+//Admin add Member (staff-Member)
+exports.addStaffMember = (req, res) => {
+  User.findOne({ username: req.body.username }).exec(async (error, user) => {
+    if (user)
+      return res.status(400).json({
+        message: "Staff member already registered",
+        user,
+      });
+
+    const {
+      username,
+      role,
+      password,
+      re_hash_password,
+      fullName,
+      sliit_id,
+      phone,
+      email,
+    } = req.body;
+
+    const hash_password = await bcrypt.hash(password, 10);
+
+    const _member = new User({
+      username,
+      role,
+      hash_password,
+      re_hash_password,
+      fullName,
+      email,
+      sliit_id,
+      phone,
+    });
+
+    _member.save((error, data) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Something went wrong!!!!",
+          error: error,
+        });
+      }
+
+      if (data) {
+        return res.status(201).json({
+          message: "Staff Member registered successfully!",
+        });
+      }
+    });
+  });
+};
+
+//Get all members details (groups, supervisors, staff)
+exports.GetAllMemebrDetails = (req, res) => {
+  User.find({ $or: [{ role: "staff" }, { role: "supervisor" }] }).exec(
+    (error, members) => {
+      if (error) return res.status(400).json({ error });
+
+      if (members) {
+        res.status(200).json({
+          members,
+        });
+      }
+    }
+  );
+};
+
+//Delete Member By ID
+exports.DeleteMember = (req, res) => {
+  const { memberId } = req.params;
+  User.findOneAndDelete({ _id: memberId })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
 };
