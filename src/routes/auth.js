@@ -15,6 +15,7 @@ const {
   GetAllGroupDetails,
   UpdatePanel,
   getMemberDetailsById,
+  UpdateStudentGrpPanel,
 } = require("../controllers/auth-controller");
 // const { Signupp } = require("../controllers/demo-controller");
 // const { studentSignup } = require("../controllers/register-auth-controller");
@@ -86,6 +87,13 @@ router.get(
   requireSignin,
   //adminMiddleware,
   GetAllSupervisorDetails
+);
+
+router.patch(
+  "/admin/groupDetails/update/:groupId",
+  requireSignin,
+  UpdateStudentGrpPanel
+  //adminMiddleware
 );
 
 module.exports = router;

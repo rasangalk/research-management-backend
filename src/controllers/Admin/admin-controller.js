@@ -110,7 +110,7 @@ exports.UpdateSubmission = (req, res) => {
     Submission.findOneAndUpdate(
       { _id: submissionId },
       {
-        caption: req.body.movieName,
+        caption: req.body.caption,
         description: req.body.description,
         deadlineDate: req.body.deadlineDate,
         deadlineTime: req.body.deadlineTime,
@@ -127,7 +127,7 @@ exports.UpdateSubmission = (req, res) => {
 //Delete relevant submission
 exports.DeleteSubmission = (req, res) => {
   const { submissionId } = req.params;
-  User.findOneAndDelete({ _id: submissionId })
+  Submission.findOneAndDelete({ _id: submissionId })
     .then((result) => {
       res.status(200).json(result);
     })

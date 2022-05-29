@@ -261,6 +261,24 @@ exports.getMemberDetailsById = (req, res) => {
   }
 };
 
+//Update panel details
+exports.UpdateStudentGrpPanel = (req, res) => {
+  const { groupId } = req.params;
+  if (groupId) {
+    User.findOneAndUpdate(
+      { _id: groupId },
+      {
+        panel: req.body.panel,
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
+
 // exports.signout = (req, res) => {
 //   res.clearCookie("token");
 //   res.status(200).json({

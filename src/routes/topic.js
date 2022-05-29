@@ -6,6 +6,7 @@ const {
 } = require("../controllers/Students/students-controller");
 const {
   GetSupervisorTopicsDetails,
+  getTopicById,
 } = require("../controllers/Supervisor/supervisor-controller");
 
 router.post(
@@ -20,4 +21,6 @@ router.get(
   requireSignin,
   GetSupervisorTopicsDetails
 );
+
+router.get("/supervisor/getTopics/:topicId", requireSignin, getTopicById);
 module.exports = router;

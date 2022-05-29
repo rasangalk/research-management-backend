@@ -13,3 +13,18 @@ exports.GetSupervisorTopicsDetails = (req, res) => {
     }
   });
 };
+
+//Get relevant Topic by id
+exports.getTopicById = (req, res) => {
+  const { topicId } = req.params;
+  if (topicId) {
+    Topic.findOne({ _id: topicId }).exec((error, topic) => {
+      if (error) return res.status(400).json({ error });
+      if (topic) {
+        res.status(201).json({ topic });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};

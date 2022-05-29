@@ -19,13 +19,13 @@ router.get(
 router.get(
   "/admin/panel-details/:panelId",
   requireSignin,
-  adminMiddleware,
+  //adminMiddleware,
   getPanelById
 );
 router.patch(
   "/admin/panel-details/update/:panelId",
   requireSignin,
-  adminMiddleware,
+  //adminMiddleware,
   UpdatePanelMembers
 );
 
