@@ -247,24 +247,20 @@ exports.UpdatePanelMembers = (req, res) => {
 
 //Admin create Marking Schema
 exports.addMarkingSchema = (req, res) => {
-  const {
-    assignmentName,
-    namingField1,
-    namingField2,
-    namingField3,
-    markingField1,
-    markingField2,
-    markingField3,
-  } = req.body;
+  console.log(req.body);
+  // const {
+  //   assignmentName,
+  //   namingField1,
+  //   namingField2,
+  //   namingField3,
+  //   markingField1,
+  //   markingField2,
+  //   markingField3,
+  // } = req.body;
 
   const markingSchema = new MarkingSchema({
-    assignmentName,
-    namingField1,
-    namingField2,
-    namingField3,
-    markingField1,
-    markingField2,
-    markingField3,
+    assignmentName: req.body.assignmentName,
+    markingScheme: req.body.markingScheme,
   });
 
   markingSchema.save((error, markingSchema) => {
