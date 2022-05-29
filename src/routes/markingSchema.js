@@ -5,6 +5,7 @@ const {
   GetAllMarkingSchemas,
   getMarkingSchemaById,
   UpdateMarkingSchema,
+  DeleteMarkingSchema,
 } = require("../controllers/Admin/admin-controller");
 
 const router = express.Router();
@@ -24,6 +25,13 @@ router.get(
 router.patch(
   "/admin/markingSchemas/update/:markingSchemaId",
   UpdateMarkingSchema,
+  requireSignin,
+  adminMiddleware
+);
+
+router.delete(
+  "/admin/markingSchemas/delete",
+  DeleteMarkingSchema,
   requireSignin,
   adminMiddleware
 );
