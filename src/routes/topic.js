@@ -7,6 +7,7 @@ const {
 const {
   GetSupervisorTopicsDetails,
   getTopicById,
+  UpdateTopicStatus,
 } = require("../controllers/Supervisor/supervisor-controller");
 
 router.post(
@@ -23,4 +24,6 @@ router.get(
 );
 
 router.get("/supervisor/getTopics/:topicId", requireSignin, getTopicById);
+
+router.patch("/sueprvisor/topic/update", requireSignin, UpdateTopicStatus);
 module.exports = router;
