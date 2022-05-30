@@ -1,5 +1,6 @@
 const Topic = require("../../models/topic-registration");
 const User = require("../../models/user");
+const StudentSubmission = require("../../models/student-submission");
 
 //Get all members details (groups, supervisors, staff)
 exports.GetSupervisorTopicsDetails = (req, res) => {
@@ -71,4 +72,31 @@ exports.UpdateTopicStatus = (req, res) => {
       }
     });
   }
+};
+
+//Get relevant Topic by id
+exports.getStudentSubmissionsByName = (req, res) => {
+  const { assignmentName } = req.params;
+  if (assignmentName) {
+    StudentSubmission.find({ status: assignmentName }).exec(
+      (error, submission) => {
+        if (error) return res.status(400).json({ error });
+        if (submission) {
+          res.status(201).json({ submission });
+        }
+      }
+    );
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
+
+//Get relevant Topic by id
+exports.getAllTopicSubmissions = (req, res) => {
+  Topic.find({}).exec((error, topic) => {
+    if (error) return res.status(400).json({ error });
+    if (topic) {
+      res.status(201).json({ topic });
+    }
+  });
 };

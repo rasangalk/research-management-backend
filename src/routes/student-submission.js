@@ -7,6 +7,9 @@ const path = require("path");
 const {
   AddSubmission,
 } = require("../controllers/Students/students-controller");
+const {
+  getStudentSubmissionsByName,
+} = require("../controllers/Supervisor/supervisor-controller");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,6 +27,11 @@ router.post(
   requireSignin,
   upload.array("studentSubmission"),
   AddSubmission
+);
+
+router.get(
+  "/supervisor/student-submission/:assignmentName",
+  getStudentSubmissionsByName
 );
 
 module.exports = router;

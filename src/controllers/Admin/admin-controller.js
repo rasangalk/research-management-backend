@@ -328,7 +328,7 @@ exports.UpdateMarkingSchema = (req, res) => {
 //Delete Member By ID
 exports.DeleteMarkingSchema = (req, res) => {
   const { schemaId } = req.params;
-  User.findOneAndDelete({ _id: schemaId })
+  MarkingSchema.findOneAndDelete({ _id: schemaId })
     .then((result) => {
       res.status(200).json(result);
     })

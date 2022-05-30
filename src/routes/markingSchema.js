@@ -30,7 +30,7 @@ router.patch(
 );
 
 router.delete(
-  "/admin/markingSchemas/delete",
+  "/admin/markingSchemas/delete/:schemaId",
   DeleteMarkingSchema,
   requireSignin,
   adminMiddleware
