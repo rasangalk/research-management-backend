@@ -34,6 +34,7 @@ const submissionRoutes = require("./routes/submission");
 const studentSubmissionRoutes = require("./routes/student-submission");
 const panelRoutes = require("./routes/panel");
 const markingSchemaRoutes = require("./routes/markingSchema");
+const staffSchemaRoutes = require("./routes/staff");
 
 app.use(cors());
 app.use(express.json());
@@ -45,3 +46,4 @@ app.use("/api", submissionRoutes);
 app.use("/api", studentSubmissionRoutes);
 app.use("/api", panelRoutes);
 app.use("/api", markingSchemaRoutes);
+app.use("/api", staffSchemaRoutes);

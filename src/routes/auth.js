@@ -6,6 +6,7 @@ const {
   DeleteMember,
   GetAllStaffMemebrDetails,
   GetAllSupervisorDetails,
+  UpdateMemberDetails,
 } = require("../controllers/Admin/admin-controller");
 const {
   signin,
@@ -90,9 +91,16 @@ router.get(
 );
 
 router.patch(
-  "/admin/groupDetails/update/:groupId",
+  "/admin/groupDetails/update",
   requireSignin,
   UpdateStudentGrpPanel
+  //adminMiddleware
+);
+
+router.patch(
+  "/admin/member/update",
+  requireSignin,
+  UpdateMemberDetails
   //adminMiddleware
 );
 

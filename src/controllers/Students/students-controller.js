@@ -11,6 +11,9 @@ exports.registerTopic = (req, res) => {
     coSupervisor,
     supervisorStatus,
     coSupervisorStatus,
+    supervisorComment,
+    coSupervisorName,
+    supervisorName,
   } = req.body;
 
   const topicReg = new Topic({
@@ -22,6 +25,9 @@ exports.registerTopic = (req, res) => {
     user: req.user._id,
     supervisorStatus,
     coSupervisorStatus,
+    supervisorComment,
+    coSupervisorName,
+    supervisorName,
   });
 
   topicReg.save((error, topic) => {
@@ -55,4 +61,31 @@ exports.AddSubmission = (req, res) => {
       res.status(201).json({ submission });
     }
   });
+};
+
+//Get relevant Topic by userId
+exports.getTopicByUserId = (req, res) => {
+  const { userId } = req.params;
+  if (userId) {
+    Topic.findOne({ user: userId }).exec((error, topic) => {
+      if (error) return res.status(400).json({ error });
+      if (topic) {
+        res.status(201).json({ topic });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Something went wrong!!" });
+  }
+};
+
+//Delete Topic By ID
+exports.deleteTopic = (req, res) => {
+  const { topicId } = req.params;
+  Topic.findOneAndDelete({ _id: topicId })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
 };

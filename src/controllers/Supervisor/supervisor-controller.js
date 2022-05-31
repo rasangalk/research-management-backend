@@ -31,14 +31,69 @@ exports.getTopicById = (req, res) => {
 };
 
 //Update Topic Status
+// exports.UpdateTopicStatus = (req, res) => {
+//   const { topicId } = req.body;
+//   const { groupId } = req.body;
+
+//   if (topicId) {
+//     Topic.findOneAndUpdate(
+//       { _id: topicId },
+//       {
+//         supervisorStatus: req.body.status1,
+//       },
+//       {
+//         supervisorComment: req.body.supComment,
+//       }
+//     ).exec((error, result) => {
+//       if (error) return res.status(400).json({ error });
+//       if (result) {
+//         res.status(202).json({ result });
+//       }
+//     });
+//   }
+//   if (groupId) {
+//     User.findOneAndUpdate(
+//       { username: groupId },
+//       {
+//         status: {
+//           no1: req.body.status2,
+//           no2: "false",
+//           no3: "false",
+//           no4: "false",
+//           no5: "false",
+//           no6: "false",
+//           no7: "false",
+//           no8: "false",
+//           no9: "false",
+//           no10: "false",
+//         },
+//       }
+//     );
+//   }
+// };
+
 exports.UpdateTopicStatus = (req, res) => {
   const { topicId } = req.body;
   const { groupId } = req.body;
+
+  // if (topicId) {
+  //   Topic.findOneAndUpdate(
+  //     { _id: topicId },
+  //     {
+  //       supervisorStatus: req.body.status1,
+  //     },
+  //     {
+  //       supervisorComment: req.body.supComment,
+  //     }
+  //   );
+  // }
   if (topicId) {
     Topic.findOneAndUpdate(
       { _id: topicId },
       {
+        supervisorName: req.body.supervisorName,
         supervisorStatus: req.body.status1,
+        supervisorComment: req.body.supComment,
       }
     ).exec((error, result) => {
       if (error) return res.status(400).json({ error });
@@ -47,12 +102,17 @@ exports.UpdateTopicStatus = (req, res) => {
       }
     });
   }
+};
+
+//Update student side home page tick status
+exports.UpdateStudentTopicStatus = (req, res) => {
+  const { groupId } = req.body;
   if (groupId) {
     User.findOneAndUpdate(
       { username: groupId },
       {
         status: {
-          no1: req.body.status2,
+          no1: req.body.status,
           no2: "false",
           no3: "false",
           no4: "false",

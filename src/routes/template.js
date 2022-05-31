@@ -33,7 +33,7 @@ router.post(
 router.delete(
   "/admin/template/delete/:templateId",
   requireSignin,
-  adminMiddleware,
+  // adminMiddleware,
   DeleteTemplate
 );
 router.get("/admin/templates", requireSignin, getTemplates);

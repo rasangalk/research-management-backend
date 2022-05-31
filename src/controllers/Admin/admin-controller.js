@@ -427,3 +427,22 @@ exports.GetAllSupervisorDetails = (req, res) => {
     }
   });
 };
+
+//Update Member details
+exports.UpdateMemberDetails = (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.body.memberId },
+    {
+      fullName: req.body.fullName,
+      username: req.body.username,
+      email: req.body.email,
+      phone: req.body.phone,
+      sliit_id: req.body.sliit_id,
+    }
+  ).exec((error, result) => {
+    if (error) return res.status(400).json({ error });
+    if (result) {
+      res.status(202).json({ result });
+    }
+  });
+};

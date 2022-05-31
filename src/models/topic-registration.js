@@ -26,6 +26,16 @@ const topicSchema = new mongoose.Schema(
       required: true,
     },
 
+    supervisorName: {
+      type: String,
+      default: "unavailable",
+    },
+
+    coSupervisorName: {
+      type: String,
+      default: "unavailable",
+    },
+
     coSupervisor: {
       type: String,
       default: "unavailable",
@@ -37,6 +47,10 @@ const topicSchema = new mongoose.Schema(
     },
 
     coSupervisorStatus: {
+      type: String,
+      default: "unavailable",
+    },
+    supervisorComment: {
       type: String,
       default: "unavailable",
     },

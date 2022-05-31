@@ -154,6 +154,7 @@ exports.signin = (req, res) => {
             role: user.role,
             phone: user.phone,
             research_interest: user.research_interest,
+            panel: user.panel,
             students: {
               leader: {
                 fullName: user.students.leader.fullName,
@@ -263,20 +264,20 @@ exports.getMemberDetailsById = (req, res) => {
 
 //Update panel details
 exports.UpdateStudentGrpPanel = (req, res) => {
-  const { groupId } = req.params;
-  if (groupId) {
-    User.findOneAndUpdate(
-      { _id: groupId },
-      {
-        panel: req.body.panel,
-      }
-    ).exec((error, result) => {
-      if (error) return res.status(400).json({ error });
-      if (result) {
-        res.status(202).json({ result });
-      }
-    });
-  }
+  //const { groupId } = req.body.groupId;
+  //if (groupId) {
+  User.findOneAndUpdate(
+    { _id: req.body.groupId },
+    {
+      panel: req.body.panel,
+    }
+  ).exec((error, result) => {
+    if (error) return res.status(400).json({ error });
+    if (result) {
+      res.status(202).json({ result });
+    }
+  });
+  //}
 };
 
 // exports.signout = (req, res) => {
