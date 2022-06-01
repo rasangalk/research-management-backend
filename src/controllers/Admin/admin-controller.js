@@ -213,36 +213,34 @@ exports.getPanelById = (req, res) => {
 
 //Update panel details
 exports.UpdatePanelMembers = (req, res) => {
-  const { panelId } = req.params;
-  if (panelId) {
-    Panel.findOneAndUpdate(
-      { _id: panelId },
-      {
-        panelMembers: {
-          member1: {
-            // memberId: req.body.panelMembers.member1.memberId,
-            // fullName: req.body.panelMembers.member1.fullName,
-            username: req.body.panelMembers.member1.username,
-          },
-          member2: {
-            // memberId: req.body.panelMembers.member2.memberId,
-            // fullName: req.body.panelMembers.member2.fullName,
-            username: req.body.panelMembers.member2.username,
-          },
-          member3: {
-            // memberId: req.body.panelMembers.member3.memberId,
-            // fullName: req.body.panelMembers.member3.fullName,
-            username: req.body.panelMembers.member3.username,
-          },
+  Panel.findOneAndUpdate(
+    { _id: req.body.panelId },
+    {
+      _id: req.body.panelId,
+      panelMembers: {
+        member1: {
+          memberId: req.body.panelMembers.member1.memberId,
+          fullName: req.body.panelMembers.member1.fullName,
+          username: req.body.panelMembers.member1.username,
         },
-      }
-    ).exec((error, result) => {
-      if (error) return res.status(400).json({ error });
-      if (result) {
-        res.status(202).json({ result });
-      }
-    });
-  }
+        member2: {
+          memberId: req.body.panelMembers.member2.memberId,
+          fullName: req.body.panelMembers.member2.fullName,
+          username: req.body.panelMembers.member2.username,
+        },
+        member3: {
+          memberId: req.body.panelMembers.member3.memberId,
+          fullName: req.body.panelMembers.member3.fullName,
+          username: req.body.panelMembers.member3.username,
+        },
+      },
+    }
+  ).exec((error, result) => {
+    if (error) return res.status(400).json({ error });
+    if (result) {
+      res.status(202).json({ result });
+    }
+  });
 };
 
 //Admin create Marking Schema
