@@ -23,7 +23,7 @@ router.get(
   getPanelById
 );
 router.patch(
-  "/admin/panel-details/update/:panelId",
+  "/admin/panel-details/update",
   requireSignin,
   //adminMiddleware,
   UpdatePanelMembers
