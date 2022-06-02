@@ -9,6 +9,9 @@ const {
 } = require("../controllers/Students/students-controller");
 const {
   getStudentSubmissionsByName,
+  getStudentSubmission,
+  evaluateStudentSubmissions,
+  getAllStudentSubmissions,
 } = require("../controllers/Supervisor/supervisor-controller");
 
 const storage = multer.diskStorage({
@@ -33,5 +36,17 @@ router.get(
   "/supervisor/student-submission/:assignmentName",
   getStudentSubmissionsByName
 );
+
+router.get(
+  "/supervisor/student-submission/view/:assignment",
+  getStudentSubmission
+);
+
+router.patch(
+  "/supervisor/student-submission/evaluate/:assignment",
+  evaluateStudentSubmissions
+);
+
+router.get("/supervisor/student-submissions", getAllStudentSubmissions);
 
 module.exports = router;

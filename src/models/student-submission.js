@@ -6,7 +6,37 @@ const studentSubmissionSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
+    topic: {
+      type: String,
+      required: true,
+    },
+    groupID: {
+      type: String,
+      required: true,
+    },
+    supervisorID: {
+      type: String,
+      required: true,
+    },
+    researchInterest: {
+      type: String,
+      required: true,
+    },
+    isViewed: {
+      default: 0,
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+    },
+    panelID: {
+      type: String,
+      required: true,
+    },
+    marks: {
+      type: String,
+    },
     submissionArray: [
       {
         submission: {
