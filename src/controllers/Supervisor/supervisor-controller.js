@@ -5,7 +5,9 @@ const StudentSubmission = require("../../models/student-submission");
 //Get all members details (groups, supervisors, staff)
 exports.GetSupervisorTopicsDetails = (req, res) => {
   const { supervisorId } = req.params;
-  Topic.find({ supervisor: supervisorId }).exec((error, topics) => {
+  Topic.find({
+    $or: [{ supervisor: supervisorId }, { coSupervisor: supervisorId }],
+  }).exec((error, topics) => {
     if (error) return res.status(400).json({ error });
 
     if (topics) {
@@ -113,8 +115,8 @@ exports.UpdateStudentTopicStatus = (req, res) => {
       { username: groupId },
       {
         status: {
-          no1: req.body.status,
-          no2: "false",
+          no1: "true",
+          no2: req.body.status,
           no3: "false",
           no4: "false",
           no5: "false",

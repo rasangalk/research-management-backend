@@ -1,5 +1,9 @@
 const express = require("express");
 const { requireSignin, studentMiddleware } = require("../common-middleware");
+const {
+  UpdateStudentCoSupTopicStatus,
+  UpdateCoSupTopicStatus,
+} = require("../controllers/coSupervisor/coSupervisor-controller");
 const router = express.Router();
 const {
   registerTopic,
@@ -30,9 +34,20 @@ router.get("/supervisor/getTopics/:topicId", requireSignin, getTopicById);
 
 router.patch("/sueprvisor/topic/update", requireSignin, UpdateTopicStatus);
 router.patch(
+  "/coSueprvisor/topic/update",
+  requireSignin,
+  UpdateCoSupTopicStatus
+);
+router.patch(
   "/sueprvisor/topic/updateTopicTick",
   requireSignin,
   UpdateStudentTopicStatus
+);
+
+router.patch(
+  "/coSueprvisor/topic/updateTopicTick",
+  requireSignin,
+  UpdateStudentCoSupTopicStatus
 );
 
 router.get("/student/getTopic/:userId", requireSignin, getTopicByUserId);
