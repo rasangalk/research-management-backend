@@ -26,6 +26,7 @@ const {
 } = require("../controllers/Students/students-controller");
 const {
   UpdateSupervisorInStudentGroup,
+  UpdateSupervisorDetails,
 } = require("../controllers/Supervisor/supervisor-controller");
 // const { Signupp } = require("../controllers/demo-controller");
 // const { studentSignup } = require("../controllers/register-auth-controller");
@@ -130,6 +131,13 @@ router.patch(
   "/student/groupDetails/update/:groupId",
   requireSignin,
   UpdateStudentGroupDetails
+  //adminMiddleware
+);
+
+router.patch(
+  "/supervisor/update/:supervisorId",
+  requireSignin,
+  UpdateSupervisorDetails
   //adminMiddleware
 );
 module.exports = router;
