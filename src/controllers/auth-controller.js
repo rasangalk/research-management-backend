@@ -150,11 +150,14 @@ exports.signin = (req, res) => {
           token,
           user: {
             _id: user._id,
+            fullName: user.fullName,
             username: user.username,
             role: user.role,
             phone: user.phone,
             research_interest: user.research_interest,
             panel: user.panel,
+            email: user.email,
+            sliit_id: user.sliit_id,
             students: {
               leader: {
                 fullName: user.students.leader.fullName,
@@ -279,6 +282,27 @@ exports.UpdateStudentGrpPanel = (req, res) => {
   });
   //}
 };
+
+// //Update Staff Member
+// exports.UpdateStaffMember = (req, res) => {
+//   const { submissionId } = req.body;
+//   if (submissionId) {
+//     Submission.findOneAndUpdate(
+//       { _id: submissionId },
+//       {
+//         caption: req.body.caption,
+//         description: req.body.description,
+//         deadlineDate: req.body.deadlineDate,
+//         deadlineTime: req.body.deadlineTime,
+//       }
+//     ).exec((error, result) => {
+//       if (error) return res.status(400).json({ error });
+//       if (result) {
+//         res.status(202).json({ result });
+//       }
+//     });
+//   }
+// };
 
 // exports.signout = (req, res) => {
 //   res.clearCookie("token");
