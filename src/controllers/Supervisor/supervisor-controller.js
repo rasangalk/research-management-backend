@@ -154,11 +154,43 @@ exports.getStudentSubmissionsByName = (req, res) => {
 };
 
 //Get relevant Topic by id
-exports.getAllTopicSubmissions = (req, res) => {
-  Topic.find({}).exec((error, topic) => {
+exports.getStudentSubmission = (req, res) => {
+  const { assignment } = req.params;
+  StudentSubmission.find({ _id: assignment }).exec((error, assignment) => {
     if (error) return res.status(400).json({ error });
-    if (topic) {
-      res.status(201).json({ topic });
+    if (assignment) {
+      res.status(201).json({ assignment });
+    }
+  });
+};
+
+//Get all Topics
+exports.getAllStudentSubmissions = (req, res) => {
+  StudentSubmission.find({}).exec((error, allSubmissions) => {
+    if (error) return res.status(400).json({ error });
+    if (allSubmissions) {
+      res.status(201).json({ allSubmissions });
+    }
+  });
+};
+
+//Get relevant Topic by id
+exports.evaluateStudentSubmissions = (req, res) => {
+  const { assignment } = req.params;
+  StudentSubmission.findOneAndUpdate(
+    { _id: assignment },
+    {
+      comment: req.body.comment,
+      isViewed: req.body.isViewed,
+      marks: req.body.marks,
+      commentPanel: req.body.commentPanel,
+      isViewedPanel: req.body.isViewedPanel,
+      marksPanel: req.body.marksPanel,
+    }
+  ).exec((error, assignment) => {
+    if (error) return res.status(400).json({ error });
+    if (assignment) {
+      res.status(201).json({ assignment });
     }
   });
 };

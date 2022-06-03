@@ -10,12 +10,10 @@ const submissionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
     deadlineDate: {
       type: String,
       required: true,
     },
-
     deadlineTime: {
       type: String,
       required: true,

@@ -40,7 +40,8 @@ exports.registerTopic = (req, res) => {
 
 //Student Add Submission
 exports.AddSubmission = (req, res) => {
-  const { status } = req.body;
+  const { status, topic, groupID, researchInterest, supervisorID, panelID } =
+    req.body;
 
   let submissionArray = [];
   if (req.files.length > 0) {
@@ -51,7 +52,12 @@ exports.AddSubmission = (req, res) => {
 
   const submission = new StudentSubmission({
     status,
+    topic,
+    groupID,
+    supervisorID,
     submissionArray,
+    researchInterest,
+    panelID,
     user: req.user._id,
   });
 
