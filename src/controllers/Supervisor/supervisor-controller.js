@@ -181,6 +181,9 @@ exports.evaluateStudentSubmissions = (req, res) => {
       comment: req.body.comment,
       isViewed: req.body.isViewed,
       marks: req.body.marks,
+      commentPanel: req.body.commentPanel,
+      isViewedPanel: req.body.isViewedPanel,
+      marksPanel: req.body.marksPanel,
     }
   ).exec((error, assignment) => {
     if (error) return res.status(400).json({ error });

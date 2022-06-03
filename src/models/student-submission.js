@@ -37,6 +37,16 @@ const studentSubmissionSchema = new mongoose.Schema(
     marks: {
       type: String,
     },
+    commentPanel: {
+      type: String,
+    },
+
+    marksPanel: {
+      type: String,
+    },
+    isViewedPanel: {
+      type: String,
+    },
     submissionArray: [
       {
         submission: {
