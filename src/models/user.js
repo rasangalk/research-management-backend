@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ["student", "supervisor", "staff", "admin"],
+      enum: ["student", "supervisor", "coSupervisor", "staff", "admin"],
       default: "staff",
     },
 
@@ -53,10 +53,8 @@ const userSchema = new mongoose.Schema(
 
     email: {
       type: String,
-      required: false,
       trim: true,
       unique: true,
-      lowercase: true,
     },
 
     specialization: {
@@ -103,10 +101,8 @@ const userSchema = new mongoose.Schema(
 
         email: {
           type: String,
-          required: false,
           trim: true,
           unique: true,
-          lowercase: true,
         },
 
         specialization: {
@@ -139,10 +135,8 @@ const userSchema = new mongoose.Schema(
 
         email: {
           type: String,
-          required: false,
           trim: true,
           unique: true,
-          lowercase: true,
         },
 
         specialization: {
@@ -162,7 +156,6 @@ const userSchema = new mongoose.Schema(
 
         sliit_id: {
           type: String,
-          required: false,
           trim: true,
           min: 3,
           max: 20,
@@ -175,10 +168,8 @@ const userSchema = new mongoose.Schema(
 
         email: {
           type: String,
-          required: false,
           trim: true,
           unique: true,
-          lowercase: true,
         },
 
         specialization: {
@@ -211,10 +202,8 @@ const userSchema = new mongoose.Schema(
 
         email: {
           type: String,
-          required: false,
           trim: true,
           unique: true,
-          lowercase: true,
         },
 
         specialization: {

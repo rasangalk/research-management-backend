@@ -17,7 +17,7 @@ exports.studentSignup = (req, res) => {
       role: req.body.role,
       hash_password: hash_password,
       re_hash_password: req.body.re_hash_password,
-      panel: req.body.panel,
+      //panel: req.body.panel,
       students: {
         leader: {
           fullName: req.body.students.leader.fullName,
@@ -48,20 +48,20 @@ exports.studentSignup = (req, res) => {
           specialization: req.body.students.member3.specialization,
         },
       },
-      status: {
-        no1: req.body.status.no1,
-        no2: req.body.status.no2,
-        no3: req.body.status.no3,
-        no4: req.body.status.no4,
-        no5: req.body.status.no5,
-        no6: req.body.status.no6,
-        no7: req.body.status.no7,
-        no8: req.body.status.no8,
-        no9: req.body.status.no9,
-        no10: req.body.status.no10,
-      },
-      supervisor: req.body.supervisor,
-      coSupervisor: req.body.coSupervisor,
+      // status: {
+      //   no1: req.body.status.no1,
+      //   no2: req.body.status.no2,
+      //   no3: req.body.status.no3,
+      //   no4: req.body.status.no4,
+      //   no5: req.body.status.no5,
+      //   no6: req.body.status.no6,
+      //   no7: req.body.status.no7,
+      //   no8: req.body.status.no8,
+      //   no9: req.body.status.no9,
+      //   no10: req.body.status.no10,
+      // },
+      // supervisor: req.body.supervisor,
+      // coSupervisor: req.body.coSupervisor,
     });
 
     _student.save((error, data) => {
