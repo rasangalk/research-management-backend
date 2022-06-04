@@ -10,18 +10,18 @@ env.config();
 
 //MongoDB connection
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@sliit-research-tool.gmahe.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => {
-    console.log("Database Connected !!");
-  });
+	.connect(
+		`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@sliit-research-tool.gmahe.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		},
+	)
+	.then(() => {
+		console.log("Database Connected !!");
+	});
 app.listen(process.env.PORT, () => {
-  console.log(`Server in running on port ${process.env.PORT}`);
+	console.log(`Server in running on port ${process.env.PORT}`);
 });
 
 //--------------------------------------------------------------------------
@@ -35,6 +35,7 @@ const studentSubmissionRoutes = require("./routes/student-submission");
 const panelRoutes = require("./routes/panel");
 const markingSchemaRoutes = require("./routes/markingSchema");
 const staffSchemaRoutes = require("./routes/staff");
+const helloRoute = require("./routes/test-route");
 
 app.use(cors());
 app.use(express.json());
@@ -47,3 +48,4 @@ app.use("/api", studentSubmissionRoutes);
 app.use("/api", panelRoutes);
 app.use("/api", markingSchemaRoutes);
 app.use("/api", staffSchemaRoutes);
+app.use("/", helloRoute);
