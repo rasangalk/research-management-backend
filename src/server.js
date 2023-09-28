@@ -10,18 +10,15 @@ env.config();
 
 //MongoDB connection
 mongoose
-	.connect(
-		`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@sliit-research-tool.gmahe.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		},
-	)
-	.then(() => {
-		console.log("Database Connected !!");
-	});
+  .connect(`${process.env.MONGO_URL}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database Connected !!");
+  });
 app.listen(process.env.PORT, () => {
-	console.log(`Server in running on port ${process.env.PORT}`);
+  console.log(`Server in running on port ${process.env.PORT}`);
 });
 
 //--------------------------------------------------------------------------
