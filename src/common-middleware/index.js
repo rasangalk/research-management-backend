@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const { UserRefreshClient } = require("google-auth-library");
+const googleOAuth2Client = require("../config/GoogleOAuth2Client");
 
 exports.requireSignin = (req, res, next) => {
   if (req.headers.authorization) {
@@ -10,6 +12,33 @@ exports.requireSignin = (req, res, next) => {
   }
   next();
 };
+
+exports.googleOauth2 = async (req, res, next) => {
+  try {
+    const { tokens } = await googleOAuth2Client.getToken(req.body.code);
+    console.dir(tokens);
+
+    const user = jwt.decode(tokens.id_token);
+    console.dir(user);
+
+    req.user = user;
+
+    next();
+  } catch (error) {
+    console.dir(error);
+    return res.status(400).json({ message: error.message });
+  }
+}
+
+exports.refreshTokens = async (refreshToken) => {
+  const user = new UserRefreshClient(
+    process.env.GOOGLE_OAUTH2_CLIENT_ID,
+    process.env.GOOGLE_OAUTH2_CLIENT_SECRET,
+    refreshToken
+  );
+  const { credentials } = await user.refreshAccessToken();
+  return credentials;
+}
 
 exports.studentMiddleware = (req, res, next) => {
   if (req.user.role !== "student") {
