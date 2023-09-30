@@ -16,7 +16,7 @@ exports.studentSignup = (req, res) => {
         email: req.body.students.leader.email,
         role: req.body.role,
         hash_password: req.body.password,
-        re_hash_password: hash_password,
+        re_hash_password: req.body.password,
         //panel: req.body.panel,
         students: {
           leader: {
