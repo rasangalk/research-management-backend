@@ -4,81 +4,82 @@ const bcrypt = require("bcrypt");
 
 //Student Signup
 exports.studentSignup = (req, res) => {
-  User.findOne({ username: req.body.username }).exec(async (error, user) => {
-    if (user)
-      return res.status(400).json({
-        message: "Group already registered",
+  User.findOne({ username: req.body.username || req.user.email }).exec(
+    async (error, user) => {
+      if (user)
+        return res.status(400).json({
+          message: "Group already registered",
+        });
+
+      const _student = new User({
+        username: req.body.username || req.user.email,
+        email: req.body.students.leader.email,
+        role: req.body.role,
+        hash_password: req.body.password,
+        re_hash_password: req.body.password,
+        //panel: req.body.panel,
+        students: {
+          leader: {
+            fullName: req.body.students.leader.fullName,
+            sliit_id: req.body.students.leader.sliit_id,
+            phone: req.body.students.leader.phone,
+            email: req.body.students.leader.email,
+            specialization: req.body.students.leader.specialization,
+          },
+          member1: {
+            fullName: req.body.students.member1.fullName,
+            sliit_id: req.body.students.member1.sliit_id,
+            phone: req.body.students.member1.phone,
+            email: req.body.students.member1.email,
+            specialization: req.body.students.member1.specialization,
+          },
+          member2: {
+            fullName: req.body.students.member2.fullName,
+            sliit_id: req.body.students.member2.sliit_id,
+            phone: req.body.students.member2.phone,
+            email: req.body.students.member2.email,
+            specialization: req.body.students.member2.specialization,
+          },
+          member3: {
+            fullName: req.body.students.member3.fullName,
+            sliit_id: req.body.students.member3.sliit_id,
+            phone: req.body.students.member3.phone,
+            email: req.body.students.member3.email,
+            specialization: req.body.students.member3.specialization,
+          },
+        },
+        // status: {
+        //   no1: req.body.status.no1,
+        //   no2: req.body.status.no2,
+        //   no3: req.body.status.no3,
+        //   no4: req.body.status.no4,
+        //   no5: req.body.status.no5,
+        //   no6: req.body.status.no6,
+        //   no7: req.body.status.no7,
+        //   no8: req.body.status.no8,
+        //   no9: req.body.status.no9,
+        //   no10: req.body.status.no10,
+        // },
+        // supervisor: req.body.supervisor,
+        // coSupervisor: req.body.coSupervisor,
       });
 
-    const hash_password = await bcrypt.hash(req.body.password, 10);
+      _student.save((error, data) => {
+        if (error) {
+          return res.status(400).json({
+            message: "Student: Something went wrong!",
+            error: error,
+          });
+        }
 
-    const _student = new User({
-      username: req.body.username,
-      role: req.body.role,
-      hash_password: hash_password,
-      re_hash_password: req.body.re_hash_password,
-      //panel: req.body.panel,
-      students: {
-        leader: {
-          fullName: req.body.students.leader.fullName,
-          sliit_id: req.body.students.leader.sliit_id,
-          phone: req.body.students.leader.phone,
-          email: req.body.students.leader.email,
-          specialization: req.body.students.leader.specialization,
-        },
-        member1: {
-          fullName: req.body.students.member1.fullName,
-          sliit_id: req.body.students.member1.sliit_id,
-          phone: req.body.students.member1.phone,
-          email: req.body.students.member1.email,
-          specialization: req.body.students.member1.specialization,
-        },
-        member2: {
-          fullName: req.body.students.member2.fullName,
-          sliit_id: req.body.students.member2.sliit_id,
-          phone: req.body.students.member2.phone,
-          email: req.body.students.member2.email,
-          specialization: req.body.students.member2.specialization,
-        },
-        member3: {
-          fullName: req.body.students.member3.fullName,
-          sliit_id: req.body.students.member3.sliit_id,
-          phone: req.body.students.member3.phone,
-          email: req.body.students.member3.email,
-          specialization: req.body.students.member3.specialization,
-        },
-      },
-      // status: {
-      //   no1: req.body.status.no1,
-      //   no2: req.body.status.no2,
-      //   no3: req.body.status.no3,
-      //   no4: req.body.status.no4,
-      //   no5: req.body.status.no5,
-      //   no6: req.body.status.no6,
-      //   no7: req.body.status.no7,
-      //   no8: req.body.status.no8,
-      //   no9: req.body.status.no9,
-      //   no10: req.body.status.no10,
-      // },
-      // supervisor: req.body.supervisor,
-      // coSupervisor: req.body.coSupervisor,
-    });
-
-    _student.save((error, data) => {
-      if (error) {
-        return res.status(400).json({
-          message: "Student: Something went wrong!",
-          error: error,
-        });
-      }
-
-      if (data) {
-        return res.status(201).json({
-          message: "Group registered successfully!",
-        });
-      }
-    });
-  });
+        if (data) {
+          return res.status(201).json({
+            message: "Group registered successfully!",
+          });
+        }
+      });
+    }
+  );
 };
 
 //Supervisor Signup
@@ -135,10 +136,16 @@ exports.supervisorSignup = (req, res) => {
 
 //All users Signin
 exports.signin = (req, res) => {
-  User.findOne({ username: req.body.username }).exec((error, user) => {
-    if (error) return res.status(400).json({ error });
-    if (user) {
-      if (user.authenticate(req.body.password)) {
+  User.findOne({ username: req.body.username || req.user.email }).exec(
+    (error, user) => {
+      if (error) return res.status(400).json({ error });
+      if (user) {
+        if (req.body.password && !user.authenticate(req.body.password)) {
+          return res.status(400).json({
+            message: "Password is incorrent !!",
+          });
+        }
+
         const token = jwt.sign(
           { _id: user._id, role: user.role },
           process.env.JWT_SECRET,
@@ -191,14 +198,10 @@ exports.signin = (req, res) => {
           },
         });
       } else {
-        return res.status(400).json({
-          message: "Password is incorrent !!",
-        });
+        return res.status(400).json({ message: "Something went wrong !!" });
       }
-    } else {
-      return res.status(400).json({ message: "Something went wrong !!" });
     }
-  });
+  );
 };
 
 //Get relevant student group deatils by Id
