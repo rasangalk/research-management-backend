@@ -22,12 +22,12 @@ const userSchema = new mongoose.Schema(
 
 		hash_password: {
 			type: String,
-			required: true,
+			required: false,
 		},
 
 		re_hash_password: {
 			type: String,
-			required: true,
+			required: false,
 		},
 
 		fullName: {
