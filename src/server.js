@@ -4,6 +4,7 @@ const env = require("dotenv");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
+const helmet = require("helmet");
 
 //environment variable
 env.config();
@@ -38,6 +39,7 @@ const staffSchemaRoutes = require("./routes/staff");
 const helloRoute = require("./routes/test-route");
 const googleOAuth2Route = require("./routes/googleOAuth2Route");
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use("/templates", express.static(path.join(__dirname, "uploads")));
