@@ -1,5 +1,11 @@
-const express = require("express");
-const { requireSignin, adminMiddleware } = require("../common-middleware");
+const express = require('express');
+const {
+  requireSignin,
+  adminMiddleware,
+  studentMiddleware,
+  supervisorMiddleware,
+  coSupervisorMiddleware,
+} = require('../common-middleware');
 const {
   addStaffMember,
   GetAllMemebrDetails,
@@ -7,7 +13,7 @@ const {
   GetAllStaffMemebrDetails,
   GetAllSupervisorDetails,
   UpdateMemberDetails,
-} = require("../controllers/Admin/admin-controller");
+} = require('../controllers/Admin/admin-controller');
 const {
   signin,
   studentSignup,
@@ -17,17 +23,17 @@ const {
   UpdatePanel,
   getMemberDetailsById,
   UpdateStudentGrpPanel,
-} = require("../controllers/auth-controller");
+} = require('../controllers/auth-controller');
 const {
   UpdateCoSupervisorInStudentGroup,
-} = require("../controllers/coSupervisor/coSupervisor-controller");
+} = require('../controllers/coSupervisor/coSupervisor-controller');
 const {
   UpdateStudentGroupDetails,
-} = require("../controllers/Students/students-controller");
+} = require('../controllers/Students/students-controller');
 const {
   UpdateSupervisorInStudentGroup,
   UpdateSupervisorDetails,
-} = require("../controllers/Supervisor/supervisor-controller");
+} = require('../controllers/Supervisor/supervisor-controller');
 // const { Signupp } = require("../controllers/demo-controller");
 // const { studentSignup } = require("../controllers/register-auth-controller");
 // const {
@@ -38,106 +44,109 @@ const {
   isRequestValidated,
   validateSignupRequest,
   validateSigninRequest,
-} = require("../validators/auth");
+} = require('../validators/auth');
 const router = express.Router();
 
 router.post(
-  "/student/signup",
+  '/student/signup',
   studentSignup,
   isRequestValidated,
   validateSignupRequest
 );
 
 router.post(
-  "/supervisor/signup",
+  '/supervisor/signup',
   supervisorSignup,
   isRequestValidated,
   validateSigninRequest
 );
 
-router.post("/signin", signin);
+router.post('/signin', signin);
 router.get(
-  "/student/group-details/:groupId",
+  '/student/group-details/:groupId',
   requireSignin,
+  studentMiddleware,
   getGroupDetailsById,
   validateSigninRequest
 );
 
 router.post(
-  "/admin/staffMember/add",
+  '/admin/staffMember/add',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   addStaffMember
 );
 
-router.get("/admin/group-details", requireSignin, GetAllGroupDetails);
+router.get('/admin/group-details', requireSignin, GetAllGroupDetails);
 router.get(
-  "/admin/members",
+  '/admin/members',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   GetAllMemebrDetails
 );
-router.post("/admin/group-detail/update/:groupId", UpdatePanel, requireSignin);
+router.post('/admin/group-detail/update/:groupId', UpdatePanel, requireSignin);
 router.get(
-  "/admin/member/:memberId",
+  '/admin/member/:memberId',
   requireSignin,
-  // adminMiddleware,
+  adminMiddleware,
   getMemberDetailsById
 );
 
-router.delete("/admin/members/delete/:memberId", DeleteMember);
+router.delete('/admin/members/delete/:memberId', DeleteMember);
 router.get(
-  "/admin/staff-members",
+  '/admin/staff-members',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   GetAllStaffMemebrDetails
 );
 
 router.get(
-  "/admin/supervisors",
+  '/admin/supervisors',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   GetAllSupervisorDetails
 );
 
 router.patch(
-  "/admin/groupDetails/update",
+  '/admin/groupDetails/update',
   requireSignin,
+  adminMiddleware,
   UpdateStudentGrpPanel
-  //adminMiddleware
 );
 
 router.patch(
-  "/admin/member/update",
+  '/admin/member/update',
   requireSignin,
+  adminMiddleware,
   UpdateMemberDetails
-  //adminMiddleware
 );
 
 router.patch(
-  "/supervisor/studentUser/update/:groupId",
+  '/supervisor/studentUser/update/:groupId',
   requireSignin,
+  supervisorMiddleware,
   UpdateSupervisorInStudentGroup
-  //adminMiddleware
 );
 
 router.patch(
-  "/coSupervisor/studentUser/update/:groupId",
+  '/coSupervisor/studentUser/update/:groupId',
   requireSignin,
+  coSupervisorMiddleware,
   UpdateCoSupervisorInStudentGroup
 );
 
 router.patch(
-  "/student/groupDetails/update/:groupId",
+  '/student/groupDetails/update/:groupId',
   requireSignin,
+  studentMiddleware,
   UpdateStudentGroupDetails
   //adminMiddleware
 );
 
 router.patch(
-  "/supervisor/update/:supervisorId",
+  '/supervisor/update/:supervisorId',
   requireSignin,
+  supervisorMiddleware,
   UpdateSupervisorDetails
-  //adminMiddleware
 );
 module.exports = router;
