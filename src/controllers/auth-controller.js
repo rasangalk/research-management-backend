@@ -268,7 +268,7 @@ exports.getMemberDetailsById = (req, res) => {
   }
 };
 
-//Update panel details
+//Update panel detailsl
 exports.UpdateStudentGrpPanel = (req, res) => {
   //const { groupId } = req.body.groupId;
   //if (groupId) {

@@ -1,42 +1,42 @@
-const express = require("express");
+const express = require('express');
 // const { requireSignin } = require("../../common-middleware");
-const multer = require("multer");
+const multer = require('multer');
 const router = express.Router();
-const shortid = require("shortid");
-const path = require("path");
+const shortid = require('shortid');
+const path = require('path');
 const {
   AddTemplate,
   DeleteTemplate,
   getTemplates,
-} = require("../controllers/Admin/admin-controller");
-const { requireSignin, adminMiddleware } = require("../common-middleware");
+} = require('../controllers/Admin/admin-controller');
+const { requireSignin, adminMiddleware } = require('../common-middleware');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(path.dirname(__dirname), "./uploads"));
+    cb(null, path.join(path.dirname(__dirname), './uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, shortid.generate() + "-" + file.originalname);
+    cb(null, shortid.generate() + '-' + file.originalname);
   },
 });
 
 const upload = multer({ storage });
 
 router.post(
-  "/admin/template/add",
+  '/admin/template/add',
   //   requireSignin,
-  upload.array("researchTemplate"),
+  upload.array('researchTemplate'),
   requireSignin,
   adminMiddleware,
   AddTemplate
 );
 router.delete(
-  "/admin/template/delete/:templateId",
+  '/admin/template/delete/:templateId',
   requireSignin,
-  // adminMiddleware,
+  adminMiddleware,
   DeleteTemplate
 );
-router.get("/admin/templates", requireSignin, getTemplates);
+router.get('/admin/templates', requireSignin, adminMiddleware, getTemplates);
 // // router.get("/product/:slug", getProductsBySlug);
 // router.get("/admin/movies/:movieId", getMovieDetailsById);
 
