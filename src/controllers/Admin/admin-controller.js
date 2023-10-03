@@ -165,7 +165,7 @@ exports.addPanel = (req, res) => {
 			},
 		});
 
-		console.log(req.body.panelMembers.member3);
+		console.log("%s", req.body.panelMembers.member3);
 		_panel.save((error, data) => {
 			if (error) {
 				return res.status(400).json({
@@ -245,7 +245,7 @@ exports.UpdatePanelMembers = (req, res) => {
 
 //Admin create Marking Schema
 exports.addMarkingSchema = (req, res) => {
-	console.log(req.body);
+	console.log("%s", req.body);
 	// const {
 	//   assignmentName,
 	//   namingField1,

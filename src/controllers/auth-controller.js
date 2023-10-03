@@ -155,7 +155,7 @@ exports.signin = (req, res) => {
         { expiresIn: "1d" }
       );
 
-      res.cookie("token", token, { expiresIn: "1d" });
+      res.cookie("token", token, { expiresIn: "1d", secure: true, httpOnly: true });
       res.status(200).json({
         token,
         user: {

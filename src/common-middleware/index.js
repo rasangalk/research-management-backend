@@ -18,10 +18,13 @@ exports.googleOauth2 = async (req, res, next) => {
     const { tokens } = await googleOAuth2Client.getToken(req.body.code);
     console.dir(tokens);
 
-    const user = jwt.decode(tokens.id_token);
-    console.dir(user);
+    const user = await googleOAuth2Client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.GOOGLE_OAUTH2_CLIENT_ID,
+    });
+    console.dir(user.getPayload());
 
-    req.user = user;
+    req.user = user.getPayload();
 
     next();
   } catch (error) {
