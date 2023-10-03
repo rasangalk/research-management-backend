@@ -1,31 +1,31 @@
-const express = require("express");
-const { requireSignin, adminMiddleware } = require("../common-middleware");
+const express = require('express');
+const { requireSignin, adminMiddleware } = require('../common-middleware');
 const {
   addPanel,
   GetAllPanelDetails,
   getPanelById,
   UpdatePanelMembers,
-} = require("../controllers/Admin/admin-controller");
+} = require('../controllers/Admin/admin-controller');
 
 const router = express.Router();
 
-router.post("/admin/panel/add", addPanel, requireSignin);
+router.post('/admin/panel/add', addPanel, requireSignin);
 router.get(
-  "/admin/panel-details",
+  '/admin/panel-details',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   GetAllPanelDetails
 );
 router.get(
-  "/admin/panel-details/:panelId",
+  '/admin/panel-details/:panelId',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   getPanelById
 );
 router.patch(
-  "/admin/panel-details/update",
+  '/admin/panel-details/update',
   requireSignin,
-  //adminMiddleware,
+  adminMiddleware,
   UpdatePanelMembers
 );
 
